@@ -10,7 +10,7 @@
 #include <fstream>
 
 struct Node{
-  Node *left, *right;
+  Node *left = nullptr, *right = nullptr;
   std::string title;
   std::string isbn;
   int amount;
@@ -37,10 +37,10 @@ class library{
    * Inputs:
    *         Node *current:
    *             the current node being accessed
-   *         Node *newNode:
+   *         Node newNode:
    *             the node being inserted
    */   
-  void insert_helper(Node *current, Node *newNode);
+  void insert_helper(Node *current, Node newNode);
 
   /*
    * Description: A helper function that helps print to print all nodes
@@ -100,10 +100,10 @@ class library{
    * Description: Inserts a new node into the Binary Search Tree
    * 
    * Inputs:
-   *         Node *newNode:
+   *         Node newNode:
    *             the node being inserted
    */
-  void insert(Node *newNode);
+  void insert(Node newNode);
 
   /*
    * Description: prints the contents of the Binary Search Tree using in-order

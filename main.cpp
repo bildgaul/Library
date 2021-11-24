@@ -61,6 +61,7 @@ int main(){
     printMenu();
     cout << "Please enter your choice now: ";
     cin >> userChoice;
+    cin.get();
   }
   cout << "Thank you for using the BookStore Inventory! Have a nice day!"
        <<endl;

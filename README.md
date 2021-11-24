@@ -27,11 +27,11 @@ Features:
 	selecting the "Delete a book or books from the inventory whos titles
 	match a substring" option on the menu and providing a substring. If a
 	book title contains the substring, it will be deleted.
+	- You can exit the program by selecting the "Exit this program" option.
+	You will recieve a nice, happy message on the way out.
 
-Bugs: The insert function does not save the title of the book, and the
-comparison overwrites the current node. I have no idea if any of the other
-functions are properly implemented and working due to insert not properly
-inserting the book data.
+Bugs: The delete function causes a segmentation error after deleting a node,
+either while deleting or after when trying to access it.
 
 I learned to not wait until your partner is done to ask if it's OK to be the
 third person in their group. I have no partner and am doing this by myself

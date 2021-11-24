@@ -25,44 +25,30 @@ void library::destruct_helper(Node *current){
   }
 }
 
-void library::insert(Node *newNode){
+void library::insert(Node newNode){
   if (head == NULL){
-    head = newNode;
+    head = new Node(newNode);
   }
   else{
     insert_helper(head, newNode);
   }
 }
 
-void library::insert_helper(Node *current, Node *newNode){
-  /*if (newNode != NULL){
-    if (newNode->title < current->title){
-      insert_helper(current->left, newNode);
-    }
-    else if (newNode->title > current->title){
-      insert_helper(current->right, newNode);
-    }
-    else{
-      current = newNode; // overwrite if the titles are the same
-    }
-  }
-  else{ // current is NULL
-    current = newNode;
-    }*/
-  if (newNode->title < current->title){
+void library::insert_helper(Node *current, Node newNode){
+  if (newNode.title < current->title){ // class code
     if (current->left == NULL)
-      current->left = newNode;
+      current->left = new Node(newNode);
     else
       insert_helper(current->left, newNode);
   }
-  else if (newNode->title > current->title){
+  else if (newNode.title > current->title){
     if (current->right == NULL)
-      current->right = newNode;
+      current->right = new Node(newNode);
     else
       insert_helper(current->right, newNode);
   }
   else // overwrite if the titles are the same
-    current = newNode;
+    current = new Node(newNode);
 }
 
 void library::print(){
@@ -81,17 +67,15 @@ void library::print_helper(Node *current){
 void library::read_file(string fileName){
   ifstream fin;
   fin.open(fileName);
-  Node *newNode = new Node;
-  getline(fin, newNode->title);
-  cout << newNode->title << endl;
+  Node newNode;
+  getline(fin, newNode.title);
   while(fin){
-    fin >> newNode->isbn >> newNode->amount;
+    fin >> newNode.isbn >> newNode.amount;
     fin.get();
     insert(newNode);
 
-    getline(fin, newNode->title);
+    getline(fin, newNode.title);
   }
-  delete newNode;
   fin.close();
 }
 
@@ -105,12 +89,8 @@ void library::find_helper(Node *current, string title){
       cout << current->title << "\n\tISBN: " << current->isbn
 	   << "\n\tAmount Left: " << current->amount << endl;
     }
-    else if (title < current->title){
-      find_helper(current->left, title);
-    }
-    else if (title > current->title){
-      find_helper(current->right, title);
-    }
+    find_helper(current->left, title);
+    find_helper(current->right, title);
   }
 }
 
@@ -124,7 +104,7 @@ void library::delete_helper(Node *current, string title){
   else if (current->title.find(title) != string::npos){
     Node *temp;
     if (current->left == NULL){
-      temp = current;
+      temp = current->right;
       delete current;
       current = temp;
     }
@@ -141,7 +121,7 @@ void library::delete_helper(Node *current, string title){
 	temp = temp->left;
       }
       current->title = temp->title;
-      if (parent == NULL)
+      if (parent != NULL)
 	delete_helper(parent->left, parent->left->title);
       else
 	delete_helper(current->right, current->right->title);
