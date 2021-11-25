@@ -30,8 +30,12 @@ Features:
 	- You can exit the program by selecting the "Exit this program" option.
 	You will recieve a nice, happy message on the way out.
 
-Bugs: The delete function causes a segmentation error after deleting a node,
-either while deleting or after when trying to access it.
+Bugs: The delete function will "delete" a node, but the node is still
+accessible in other methods for some reason, even after being made null.
+-In the provided test case, a random node to the right of the "War and Peace"
+node exists with an empty title. It says it's right node is null when deleted,
+but randomly isn't when the right node itself is asked if its null. It's not
+being inserted after, but for some reason it exists.
 
 I learned to not wait until your partner is done to ask if it's OK to be the
 third person in their group. I have no partner and am doing this by myself
