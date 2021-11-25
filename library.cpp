@@ -103,20 +103,26 @@ void library::delete_helper(Node *current, string title){
     return;
   else if (current->title.find(title) != string::npos){
     Node *temp;
-    if (current->left == NULL){
+    if (current->left == NULL && current->right != NULL){
       temp = current->right;
       delete current;
       current = temp;
     }
-    else if (current->right == NULL){
+    else if (current->right == NULL && current->left != NULL){
       temp = current->left;
       delete current;
       current = temp;
+      }
+    else if (current->left == NULL && current->right == NULL){
+      delete current;
+      current = nullptr;
+      return;
     }
     else{
       temp = current->right;
+
       Node *parent = NULL;
-      while(temp->left != NULL){
+      while (temp->left != NULL){
 	parent = temp;
 	temp = temp->left;
       }
@@ -127,10 +133,9 @@ void library::delete_helper(Node *current, string title){
 	delete_helper(current->right, current->right->title);
     }
   }
-  else if (title < current->title)
-    delete_helper(current->left, title);
-  else if (title > current->title)
-    delete_helper(current->right, title);
+
+  delete_helper(current->left, title);
+  delete_helper(current->right, title);
 }
 
 void library::save_file(string fileName){
